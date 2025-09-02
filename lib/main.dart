@@ -9,35 +9,18 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'AlertsApp',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
+        useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Alertas Sonoras'),
     );
   }
 }
-
-
 
 class MyHomePage extends StatefulWidget {
   final String title;
@@ -50,12 +33,11 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final AudioPlayer _audioPlayer = AudioPlayer();
 
-  // Lista de sonidos de emergencia (debes agregar los archivos en assets/audio/)
-  final List<Map<String, String>> emergencySounds = [
-    {'label': 'Alerta General', 'file': 'alerta_general.mp3'},
-    {'label': 'Emergencia Médica', 'file': 'emergencia_medica.mp3'},
-    {'label': 'Incendio', 'file': 'incendio.mp3'},
-    {'label': 'Caída', 'file': 'caida.mp3'},
+  final List<Map<String, dynamic>> emergencySounds = [
+    {'label': 'Alerta General', 'file': 'nothing beats a jet2 holiday song mamazota.mp3', 'icon': Icons.warning},
+    {'label': 'Emergencia Médica', 'file': 'emergencia_medica.mp3', 'icon': Icons.medical_services},
+    {'label': 'Incendio', 'file': 'incendio.mp3', 'icon': Icons.local_fire_department},
+    {'label': 'Caída', 'file': 'El Negro Cirilo - Canti Rondas  Canciones Infantiles.mp3', 'icon': Icons.personal_injury},
   ];
 
   void _playSound(String fileName) async {
@@ -67,8 +49,12 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text('Alertas Sonoras'),
+        backgroundColor: Colors.red.shade900,
+        title: const Text(
+          'Alertas Sonoras',
+          style: TextStyle(color: Color.fromARGB(255, 255, 255, 255), fontWeight: FontWeight.bold),
+        ),
+        centerTitle: true,
       ),
       body: Center(
         child: Column(
@@ -76,19 +62,25 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             const Text(
               'Presiona un botón de emergencia:',
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 32),
+            const SizedBox(height: 40), // espacio entre título y botones
             ...emergencySounds.map((sound) => Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  padding: const EdgeInsets.symmetric(vertical: 12.0),
                   child: ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
-                      minimumSize: const Size(250, 60),
-                      textStyle: const TextStyle(fontSize: 20),
                       backgroundColor: Colors.redAccent,
+                      foregroundColor: Colors.white,
+                      minimumSize: const Size(280, 70), // tamaño más grande
+                      textStyle: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20), // esquinas redondeadas
+                      ),
+                      shadowColor: Colors.black54,
+                      elevation: 6,
                     ),
-                    icon: const Icon(Icons.warning, size: 32),
+                    icon: Icon(sound['icon'], size: 34),
                     label: Text(sound['label']!),
                     onPressed: () => _playSound(sound['file']!),
                   ),
