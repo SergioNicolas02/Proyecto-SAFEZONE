@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 samples, guidance on mobile development, and a full API reference.
 
 # AlertsApp
@@ -31,3 +32,6 @@ flutter run
 ## Créditos
 
 Desarrollado por afmirandad.
+=======
+# Proyecto-SAFEZONE
+>>>>>>> 04b62571e8dd2845a0274aeb8337651dd0818e8e
